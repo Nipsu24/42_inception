@@ -12,3 +12,6 @@ COPY ./conf/nginx.conf /etc/nginx.conf.d
 RUN chmod -R 755 /etc/nginx /var/www/html
 
 CMD [ "nginx", "-g", "daemon off;"]
+
+# Replace <your_domain> with your domain (e.g., $(USERNAME).42.fr), AND testing if it is already there
+#openssl req -x509 -newkey rsa:4096 -keyout <your_domain>.key -out <your_domain>.crt -days 365 -nodes
