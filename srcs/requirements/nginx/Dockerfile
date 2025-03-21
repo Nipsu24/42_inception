@@ -11,6 +11,22 @@ RUN mkdir -p /etc/nginx/ssl /run/nginx
 COPY ./conf/nginx.conf /etc/nginx.conf.d
 RUN chmod -R 755 /etc/nginx /var/www/html
 
+#Generate self-signed certificate, -x509 for SSL/TLS
+#-nodes prevents encryption of private key (no passphrase)
+RUN openssl req -x509 \
+    -nodes \
+    -out /etc/nginx/ssl/mmeier.42.fr.crt \
+    -keyout /etc/nginx/ssl/mmeier.42.fr.key \
+    -subj "/C=FI/ST=/L=Helsinki/O=Hive/OU=42/CN=mmeier42.fr/UID=mmeier"
+
+#Sets permissions to ensure web root dir is accessible
+#Changes ownership if /var/www/html to Nginx process user (www-data)
+RUN chmod 755 /var/www/html && \
+    chown -R www-data:www-data /var/www/html
+
+# opens port 443
+EXPOSE 443
+
 CMD [ "nginx", "-g", "daemon off;"]
 
 # Replace <your_domain> with your domain (e.g., $(USERNAME).42.fr), AND testing if it is already there
