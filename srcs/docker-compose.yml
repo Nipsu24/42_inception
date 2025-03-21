@@ -1,1 +1,23 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: requirements/nginx/Dockerfile
+    container_name: nginx
+    image: nginx
+    # depends_on:
+    #   - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - ./requirements/nginx/conf/:/etc/nginx/http.d/
+      - ./requirements/nginx/tools:/etc/nginx/ssl/
+      # - wp-volume:/var/www/
+    networks:
+      - inception
+    restart: always
 
+networks:
+    inception:
+        name: inception
+        driver: bridge
