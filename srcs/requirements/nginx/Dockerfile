@@ -8,7 +8,7 @@ RUN apk update && apk upgrade && apk add nginx openssl
 RUN mkdir -p /etc/nginx/ssl /run/nginx
 
 #Copy nginx conf files for later modification into container
-COPY ./conf/nginx.conf /etc/nginx.conf.d
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf.d
 RUN chmod -R 755 /etc/nginx /var/www/html
 
 #Generate self-signed certificate, -x509 for SSL/TLS
