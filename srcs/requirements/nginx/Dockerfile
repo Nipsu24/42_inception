@@ -19,10 +19,12 @@ RUN openssl req -x509 \
     -keyout /etc/nginx/ssl/mmeier.42.fr.key \
     -subj "/C=FI/ST=/L=Helsinki/O=Hive/OU=42/CN=mmeier42.fr/UID=mmeier"
 
+# Create www-data user and group
+RUN groupadd -r www-data && useradd -r -g www-data www-data
+
 #Sets permissions to ensure web root dir is accessible
 #Changes ownership if /var/www/html to Nginx process user (www-data)
-RUN chmod 755 /var/www/html && \
-    chown -R www-data:www-data /var/www/html
+RUN chmod 755 /var/www/html && chown -R www-data:www-data /var/www/html
 
 # opens port 443
 EXPOSE 443
