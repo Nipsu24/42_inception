@@ -20,7 +20,7 @@ RUN openssl req -x509 \
     -subj "/C=FI/ST=/L=Helsinki/O=Hive/OU=42/CN=mmeier42.fr/UID=mmeier"
 
 # Create www-data user and group
-RUN groupadd -r www-data && useradd -r -g www-data www-data
+RUN addgroup -S www-data || true && adduser -S -G www-data www-data || true
 
 #Sets permissions to ensure web root dir is accessible
 #Changes ownership if /var/www/html to Nginx process user (www-data)
