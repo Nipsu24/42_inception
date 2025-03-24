@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.20.6
 
 #Installs nginx and openssl packages:
 RUN apk update && apk upgrade && apk add nginx openssl
