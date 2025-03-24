@@ -9,11 +9,7 @@ RUN mkdir -p /etc/nginx/ssl /run/nginx /var/www/html
 
 # Copy nginx conf files for later modification into container
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-#COPY ./ssl/mmeier.42.fr.crt /etc/nginx/ssl/mmeier.42.fr.crt
-#COPY ./ssl/mmeier.42.fr.key /etc/nginx/ssl/mmeier.42.fr.key
-RUN chmod -R 755 /etc/nginx 
-RUN chmod -R 755 /var/www/html
-RUN chmod -R 755 /etc/nginx/ssl
+RUN chmod -R 755 /etc/nginx /var/www/html /etc/nginx/ssl
 
 # Create www-data user and group
 RUN addgroup -S www-data || true && adduser -S -G www-data www-data || true
