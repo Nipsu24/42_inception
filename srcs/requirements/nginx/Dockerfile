@@ -5,11 +5,11 @@ RUN apk update && apk upgrade && apk add nginx openssl
 
 # Creates directory for storing SSL certificates and keys
 # Creates directory for runtime data (PIDs and other files needed during nginx execution)
-RUN mkdir -p /etc/nginx/ssl /run/nginx /var/www/html
+RUN mkdir -p /run/nginx /var/www/html
 
 # Copy nginx conf files for later modification into container
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-RUN chmod -R 755 /etc/nginx /var/www/html /etc/nginx/ssl
+RUN chmod -R 755 /etc/nginx /var/www/html
 
 # Create www-data user and group
 RUN addgroup -S www-data || true && adduser -S -G www-data www-data || true

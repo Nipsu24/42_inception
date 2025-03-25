@@ -13,6 +13,10 @@ services:
      # - ./requirements/nginx/conf/:/etc/nginx/http.d/
       - ./requirements/nginx/tools:/etc/nginx/ssl/
       # - wp-volume:/var/www/
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+      - CERT=${CERT_}
+      - KEY=${KEY_}
     networks:
       - inception
     restart: unless-stopped
