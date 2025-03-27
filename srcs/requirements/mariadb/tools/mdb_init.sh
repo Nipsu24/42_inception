@@ -22,8 +22,8 @@ mysql -u root <<-EOF
 EOF
 
 # Shut down MariaDB gracefully after initialization
-echo "Shutting down MariaDB after initialization..."
-mysqladmin -u root -p"${DB_ROOT_PASS}" shutdown
+ echo "Shutting down MariaDB after initialization..."
+ mysqladmin -u root -p"${DB_ROOT_PASS}" shutdown
 
 # Start MariaDB in the foreground as the main process
 echo "Starting MariaDB in the foreground..."

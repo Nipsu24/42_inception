@@ -6,7 +6,7 @@ RUN apk update && apk add --no-cache mariadb mariadb-client
 COPY conf/mariadb.conf /etc/mysql/conf.d/
 
 #Copy script for initialising database
-COPY tools/mdb_init /usr/local/bin/mdb_init.sh
+COPY tools/mdb_init.sh /usr/local/bin/mdb_init.sh
 
 #change privileges for script
 RUN chmod 755 /usr/local/bin/mdb_init.sh
