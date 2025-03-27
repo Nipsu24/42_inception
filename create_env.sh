@@ -20,7 +20,8 @@ if [[ -z "$WP_USERNAME" || -z "$WP_ADM_NAME" || -z "$DB_PASS" || -z "$DB_ROOT_PA
 fi
 
 if [ ! -f "$ENV_FILE" ]; then
-    echo "DOMAIN_NAME=$LOGIN.42.fr" > "$ENV_FILE"
+    echo "LOGIN=$LOGIN" > "$ENV_FILE"
+	echo "DOMAIN_NAME=$LOGIN.42.fr" > "$ENV_FILE"
     echo "CERT_=./requirements/tools/$LOGIN.42.fr.crt" >> "$ENV_FILE"
     echo "KEY_=./requirements/tools/$LOGIN.42.fr.key" >> "$ENV_FILE"
     echo "DB_NAME=wordpress" >> "$ENV_FILE"
@@ -33,7 +34,7 @@ if [ ! -f "$ENV_FILE" ]; then
     echo "WP_HOST=$LOGIN.42.fr" >> "$ENV_FILE"
     echo "ADM_WP_NAME=$WP_ADM_NAME" >> "$ENV_FILE"
     echo "ADM_WP_EMAIL=$WP_ADM_NAME@42.fr" >> "$ENV_FILE"
-    echo "DB_ROOT=$DB_ROOT_PASS" >> "$ENV_FILE"
+    echo "DB_ROOT_PASS=$DB_ROOT_PASS" >> "$ENV_FILE"
     echo "DB_PASS=$DB_PASS" >> "$ENV_FILE"
     echo "ADM_WP_PASS=$WP_ADM_PASS" >> "$ENV_FILE"
     echo ".env file created."

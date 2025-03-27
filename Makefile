@@ -6,6 +6,7 @@ CERT_DIR = ./srcs/requirements/nginx/tools/
 CERT_KEY = $(CERT_DIR)/mmeier.42.fr.key
 CERT_CRT = $(CERT_DIR)/mmeier.42.fr.crt
 ENV_FILE = ./srcs/.env
+DATA_DIR = /home/$(LOGIN)/data
 
 all: check_env $(CERT_KEY) $(CERT_CRT)
 	@docker-compose -f ./srcs/docker-compose.yml up -d --build
@@ -28,5 +29,12 @@ $(CERT_KEY) $(CERT_CRT):
 
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down
+
+fclean: down
+    @echo "Removing data folder..."
+    @rm -rf $(DATA_DIR)
+    @echo "Data folder removed."
+
+re: fclean all
 
 .PHONY: all down env
