@@ -31,9 +31,9 @@ down:
 	@docker-compose -f ./srcs/docker-compose.yml down
 
 fclean: down
-    @echo "Removing data folder..."
-    @rm -rf $(DATA_DIR)
-    @echo "Data folder removed."
+	@echo "Removing data folder..."
+	@rm -rf $(DATA_DIR)
+	@echo "Data folder removed."
 
 re: fclean all
 
