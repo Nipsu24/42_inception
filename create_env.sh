@@ -3,13 +3,13 @@
 ENV_FILE="./srcs/.env"
 
 LOGIN="mmeier"
-WP_USERNAME="mmeier"
-WP_ADM_NAME="boss"
+WP_USERNAME=""
+WP_ADM_NAME=""
 
-DB_PASS="42"
-DB_ROOT_PASS="42"
-WP_USERPASS="42"
-WP_ADM_PASS="42"
+DB_PASS=""
+DB_ROOT_PASS=""
+WP_USERPASS=""
+WP_ADM_PASS=""
 
 # Check if any required variables are empty
 if [[ -z "$WP_USERNAME" || -z "$WP_ADM_NAME" || -z "$DB_PASS" || -z "$DB_ROOT_PASS" || -z "$WP_USERPASS" || -z "$WP_ADM_PASS" ]]; then
