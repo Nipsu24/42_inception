@@ -33,6 +33,7 @@ down:
 fclean: down
 	@echo "Removing data folder..."
 	@rm -rf $(DATA_DIR)
+	@echo "Removing .env file..."
 	@rm $(ENV_FILE)
 	@echo ".env file removed."
 	@echo "Data folder removed."
