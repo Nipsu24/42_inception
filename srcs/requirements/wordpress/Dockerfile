@@ -3,19 +3,19 @@ FROM alpine:3.20.6
 
 # Update and install necessary packages
 RUN apk update && apk upgrade && \
-	apk add --no-cache \
-		php81 \
-		php81-fpm \
-		php81-mysqli \
-		curl
-
+    apk add --no-cache \
+        php82 \
+        php82-fpm \
+        php82-mysqli \
+	mariadb-client \
+        curl
 # Download and configure WP CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
 # Copy PHP-FPM pool configuration
-COPY ./conf/www.conf /etc/php81/php-fpm.d/www.conf
+COPY ./conf/www.conf /etc/php82/php-fpm.d/www.conf
 
 # Create necessary directories
 RUN mkdir -p /run/php
