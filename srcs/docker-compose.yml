@@ -26,11 +26,6 @@ services:
       image: mariadb
       env_file:
         - ./.env
-      environment:
-       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
-       MYSQL_DATABASE: ${DB_NAME}
-       MYSQL_USER: ${DB_USER}
-       MYSQL_PASSWORD: ${DB_PASS}
       volumes:
         - /home/${LOGIN}/data/mariadb:/var/lib/mysql
       networks:

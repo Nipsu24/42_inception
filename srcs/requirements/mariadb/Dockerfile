@@ -1,18 +1,20 @@
 FROM alpine:3.20.6
 
+# Install MariaDB and client tools
 RUN apk update && apk add --no-cache mariadb mariadb-client
 
-#Copy config file
-COPY conf/mariadb.conf /etc/mysql/conf.d/
+# Copy custom configuration file
+COPY conf/mariadb.conf /etc/my.cnf.d/mariadb.conf
 
-#Copy script for initialising database
-COPY tools/mdb_init.sh /usr/local/bin/mdb_init.sh
+# Copy initialization script
+COPY tools/mdb_init.sh /docker-entrypoint-initdb.d/mdb_init.sh
+RUN chmod +x /docker-entrypoint-initdb.d/mdb_init.sh
 
-#change privileges for script
-RUN chmod 755 /usr/local/bin/mdb_init.sh
+# Create necessary directories for MariaDB
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
-# Opens port 3306
+# Expose port 3306
 EXPOSE 3306
 
-#starts MariaDB server and initialises it with SQL commands from init.sql
-CMD ["/usr/local/bin/mdb_init.sh"]
+# Start MariaDB server
+CMD ["mysqld", "--user=mysql", "--console"]
