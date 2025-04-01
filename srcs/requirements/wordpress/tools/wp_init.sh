@@ -9,6 +9,9 @@ done
 chown -R www:www /var/www/html
 chmod -R 755 /var/www/html
 
+if [ ! -f wp-config.php ]; then
+rm -rf /var/www/html/*
+
 # autofill wp startup fields
 wp core download --path=/var/www/html --allow-root
 wp config create \
@@ -29,7 +32,7 @@ wp core install \
 	--admin_password=$ADM_WP_PASS \
 	--admin_email=$ADM_WP_EMAIL \
 
-
+fi
 
 wp user create \
 	--allow-root \
