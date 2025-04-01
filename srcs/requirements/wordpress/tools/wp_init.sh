@@ -1,7 +1,7 @@
 #!/bin/ash
 
 # wait for mdb_init.sh to finish
-until mysqladmin ping -h"$DB_HOST" --silent; do
+until mysqladmin ping -h"$DB_HOST" --silent -u"${DB_USER}" -p"{DB_PW}"; do
 	echo "Waiting for MariaDB to be ready..."
 	sleep 2
 done
