@@ -50,7 +50,7 @@ RUN chmod +x /usr/local/bin/wp_init.sh
 # Expose required port
 EXPOSE 9000
 
-WORKDIR /var/wwww/html
+WORKDIR /var/www/html
 
 # Launch setup script at startup
 ENTRYPOINT ["/usr/local/bin/wp_init.sh"]

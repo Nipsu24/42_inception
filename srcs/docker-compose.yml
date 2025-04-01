@@ -30,6 +30,8 @@ services:
         - /home/${LOGIN}/data/mariadb:/var/lib/mysql
       networks:
         - inception
+      ports:
+        - "3306:3306"
       restart: unless-stopped
   
   wordpress:
@@ -46,6 +48,8 @@ services:
         - mariadb
       networks:
         - inception
+      ports:
+        - "9000:9000"
       restart: unless-stopped
 
 networks:

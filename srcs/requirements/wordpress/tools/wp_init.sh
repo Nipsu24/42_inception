@@ -1,7 +1,7 @@
 #!/bin/ash
 
 # wait for mdb_init.sh to finish
-until mysqladmin ping -h"$DB_HOST" --silent -u"${DB_USER}" -p"{DB_PW}"; do
+until mysqladmin ping -h"$DB_HOST" --silent -u"${DB_USER}" -p"${DB_PASS}"; do
 	echo "Waiting for MariaDB to be ready..."
 	sleep 2
 done
@@ -22,7 +22,7 @@ wp config create \
 	--dbhost=$DB_HOST \
 	--path=/var/www/html
 
-wp core install \ 
+wp core install \
 	--allow-root \
 	--path=/var/www/html \
 	--skip-email \
@@ -30,14 +30,14 @@ wp core install \
 	--title=$WP_TITLE \
 	--admin_user=$ADM_WP_NAME \
 	--admin_password=$ADM_WP_PASS \
-	--admin_email=$ADM_WP_EMAIL \
+	--admin_email=$ADM_WP_EMAIL
 
 fi
 
 wp user create \
 	--allow-root \
-	--path="/var/www/html" \ 
-	$WP_USERNAME $WP_USEREMAIL \
+	--path="/var/www/html" \
+	"${WP_USERNAME}" "${WP_USEREMAIL}" \
 	--role=author \
 	--user_pass=$WP_USERPASS 
 
