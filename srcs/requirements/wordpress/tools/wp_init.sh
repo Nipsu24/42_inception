@@ -6,14 +6,17 @@ until mysqladmin ping -h"$DB_HOST" --silent -u"${DB_USER}" -p"${DB_PASS}"; do
 	sleep 2
 done
 
+#changes ownership of files in /var/www/html to user 'www' and group 'www' (ensures that nginx has read and write access)
 chown -R www:www /var/www/html
 chmod -R 755 /var/www/html
 
 if [ ! -f wp-config.php ]; then
 rm -rf /var/www/html/*
 
-# autofill wp startup fields
+# downloads WP core files into defined dir
 wp core download --path=/var/www/html --allow-root
+
+# ensures that WP knows how to connect to MariaDB
 wp config create \
 	--allow-root \
 	--dbname=$DB_NAME \
@@ -22,6 +25,8 @@ wp config create \
 	--dbhost=$DB_HOST \
 	--path=/var/www/html
 
+#initialises WP installation, connects to MariaDB 
+#creates in MariaDB database tables (such as wp_users) in specified database(DB_NAME=wordpress) which is setup by MariaDB in turn
 wp core install \
 	--allow-root \
 	--path=/var/www/html \
