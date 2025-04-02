@@ -32,10 +32,13 @@ down:
 
 fclean: down
 	@echo "Removing data folder..."
-	@rm -rf home/mmeier/data/
-	@echo "Removing .env file..."
-	@rm $(ENV_FILE)
-	@echo ".env file removed."
+	@sudo rm -rf ../data/
+	@if [ -f .env ]; then \
+        echo "Deleting .env file..."; \
+        rm -f &(ENV_FILE); \
+    	else \
+        echo ".env file does not exist, skipping..."; \
+    	fi	
 	@echo "Data folder removed."
 
 re: fclean all

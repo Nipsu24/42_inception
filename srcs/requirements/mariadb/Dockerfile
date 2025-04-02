@@ -17,4 +17,4 @@ RUN chmod +x /docker-entrypoint-initdb.d/mdb_init.sh
 EXPOSE 3306
 
 # Start MariaDB server
-CMD ["mysqld", "--user=mysql", "--console"]
+CMD ["/docker-entrypoint-initdb.d/mdb_init.sh"]
