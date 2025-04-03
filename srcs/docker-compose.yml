@@ -54,11 +54,13 @@ services:
   
 volumes:
   wordpress:
+    name: wordpress
     driver_opts:
       type: bind
       o: bind
       device: home/${LOGIN}/data/wordpress
   mariadb:
+    name: mariadb
     driver_opts:
       type: bind
       o: bind
