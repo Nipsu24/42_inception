@@ -30,14 +30,17 @@ $(CERT_KEY) $(CERT_CRT):
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down
 
-fclean: down
+fclean:
+	@echo "Removing containers, networks and volumes..."
+	@docker-compose -f ./srcs/docker-compose.yml down -v
 	@echo "Removing data folder..."
 	@sudo rm -rf ../data/
-	@if [ -f .env ]; then \
-        echo "Deleting .env file..."; \
-        rm -f &(ENV_FILE); \
+	@if [ -f $(ENV_FILE) ]; then \
+        	echo "Deleting .env file..."; \
+        	rm -f $(ENV_FILE); \
+		echo ".env file removed"; \
     	else \
-        echo ".env file does not exist, skipping..."; \
+        	echo ".env file does not exist, skipping..."; \
     	fi	
 	@echo "Data folder removed."
 
