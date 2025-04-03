@@ -11,7 +11,7 @@ services:
       - "443:443"
     volumes:
       - ./requirements/nginx/tools:/etc/nginx/ssl/
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
     env_file:
       - ./.env
     networks:
@@ -27,7 +27,7 @@ services:
       env_file:
         - ./.env
       volumes:
-        - mariadb_data:/var/lib/mysql
+        - mariadb:/var/lib/mysql
       networks:
         - inception
       ports:
@@ -43,7 +43,7 @@ services:
       env_file:
         - ./.env
       volumes:
-        - wordpress_data:/var/www/html
+        - wordpress:/var/www/html
       depends_on:
         - mariadb
       networks:
@@ -53,8 +53,16 @@ services:
       restart: unless-stopped
   
 volumes:
-  wordpress_data:
-  mariadb_data:
+  wordpress:
+    driver_opts:
+      type: bind
+      o: bind
+      device: home/${LOGIN}/data/wordpress
+  mariadb:
+    driver_opts:
+      type: bind
+      o: bind
+      device: home/${LOGIN}/data/mariadb
 
 networks:
     inception:

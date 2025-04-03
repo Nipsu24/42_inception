@@ -9,6 +9,8 @@ ENV_FILE = ./srcs/.env
 DATA_DIR = /home/$(LOGIN)/data
 
 all: check_env $(CERT_KEY) $(CERT_CRT)
+	@mkdir -p ~/data/mariadb
+	@mkdir -p ~/data/wordpress
 	@docker-compose -f ./srcs/docker-compose.yml up -d --build
 
 check_env: env
@@ -34,7 +36,7 @@ fclean:
 	@echo "Removing containers, networks and volumes..."
 	@docker-compose -f ./srcs/docker-compose.yml down -v
 	@echo "Removing data folder..."
-	@sudo rm -rf ../data/
+	@sudo rm -rf ~/data
 	@if [ -f $(ENV_FILE) ]; then \
         	echo "Deleting .env file..."; \
         	rm -f $(ENV_FILE); \
