@@ -13,7 +13,7 @@ all: check_env $(CERT_KEY) $(CERT_CRT)
 	@mkdir -p ~/data/wordpress
 	@docker-compose -f ./srcs/docker-compose.yml up -d --build
 
-check_env: env
+check_env:
 	@if [ ! -f $(ENV_FILE) ]; then \
 		echo "Error: .env file is missing. Please create it using 'make env'."; \
 		exit 1; \
@@ -35,6 +35,7 @@ down:
 fclean:
 	@echo "Removing containers, networks and volumes..."
 	@docker-compose -f ./srcs/docker-compose.yml down -v
+	@docker system prune --all
 	@echo "Removing data folder..."
 	@sudo rm -rf ~/data
 	@if [ -f $(ENV_FILE) ]; then \
