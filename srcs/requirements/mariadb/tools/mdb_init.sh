@@ -8,26 +8,26 @@ else
     echo "Database directory already initialized."
 fi
 
-# Run initialization SQL commands
+# Removes not needed databases and creates wordpress database and user
 echo "Running database initialization..."
 mysqld --user=mysql --bootstrap << EOF
 USE mysql;
 FLUSH PRIVILEGES;
 
--- Remove anonymous users
+-- Removes anonymous users
 DELETE FROM mysql.user WHERE User='';
 
--- Drop the test database if it exists
+-- Drops test database if it exists
 DROP DATABASE IF EXISTS test;
 DELETE FROM mysql.db WHERE Db='test';
 
--- Remove root users that are not localhost
+-- Removes root users that are not localhost
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 
--- Create database if it doesn't exist
+-- Creates database if it doesn't exist
 CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE utf8_general_ci;
 
--- Create user if it doesn't exist
+-- Creates user if it doesn't exist
 CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
 
 -- Grant privileges
@@ -35,14 +35,15 @@ GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
 GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS' WITH GRANT OPTION;
 GRANT SELECT ON mysql.* TO '$DB_USER'@'%';
 
--- Update root password
+-- Updates root password
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASS';
 
--- Apply changes
+-- Applies changes
 FLUSH PRIVILEGES;
 EOF
 
 # Start MariaDB in the foreground as the main process
 echo "Starting MariaDB in the foreground..."
+# mysqld becomes main process running in foreground
 exec mysqld --defaults-file=/etc/my.cnf.d/mariadb-server.cnf
 
