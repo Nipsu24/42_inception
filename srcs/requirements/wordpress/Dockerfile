@@ -31,7 +31,7 @@ RUN addgroup -S www && \
 	echo "post_max_size = 64M" >> /etc/php82/php.ini && \
 	echo "max_execution_time = 300" >> /etc/php82/php.ini
 
-	# Download and configure WP CLI
+# Download and configure WP CLI, used in wp_init.sh to automate setup of wp
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp

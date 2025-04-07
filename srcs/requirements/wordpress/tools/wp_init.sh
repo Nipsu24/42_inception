@@ -16,7 +16,7 @@ rm -rf /var/www/html/*
 # downloads WP core files into defined dir
 wp core download --path=/var/www/html --allow-root
 
-# ensures that WP knows how to connect to MariaDB
+# ensures that WP knows how to connect to MariaDB, generates wp-config.php used to connect to MariaDB
 wp config create \
 	--allow-root \
 	--dbname=$DB_NAME \
@@ -39,6 +39,7 @@ wp core install \
 
 fi
 
+#creates new wp user and adds it to wp_users table within the database 'wordpress' inside mariadb
 wp user create \
 	--allow-root \
 	--path="/var/www/html" \
