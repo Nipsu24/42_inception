@@ -15,11 +15,13 @@ RUN chmod -R 755 /etc/nginx /var/www/html
 RUN addgroup -S www-data || true && adduser -S -G www-data www-data || true
 
 # Sets permissions to ensure web root dir is accessible
-# Changes ownership of /var/www/html to Nginx process user (www-data)
+# Changes ownership of /var/www/html to Nginx process user (www-data) (system users that run web server)
 RUN chmod 755 /var/www/html && chown -R www-data:www-data /var/www/html
 
 # Opens port 443
 EXPOSE 443
 
+#starts nginx process in the foreground (global directive -g, daemon off) - 
+#needed as docker expects main process of container to run in foreground
 CMD [ "nginx", "-g", "daemon off;" ]
 
