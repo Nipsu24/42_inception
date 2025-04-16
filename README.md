@@ -19,7 +19,8 @@ After a successful build, a wordpress website can be accessed, both as common us
 ## Project details
 For each of the 3 containers Dockerfiles and scripts/config files ensure the build of the respective container and the set-up and configuration of the applications.
 By utelising docker-compose, a communication network among the containers is established with a clear dependency/build hierarchy (mariadb > wordpress > nginx).
-The project was built and run entirely in a virtual machine on Alpine.
+The project was built and run entirely in a virtual machine on Alpine. In the mariadb container, a database for the wordpress application is created. The wordpress container and its
+application have access to this database and can store respective information such as user details or content changes (user posts). The wordpress application in turn serves the nginx server with regard to php file requests, other site requests are handled by nginx straight away.
 
 ## Requirements
 - docker and docker-compose installed
